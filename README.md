@@ -1,5 +1,7 @@
 # python CRUD operation
-Use a database (postgresql) docker container and python app container to run a simple CRUD (Create, Read, Update and Delete) operation.
+Containerized (docker) database (postgresql) and python app for a simple CRUD (Create, Read, Update and Delete) operation.
+
+[//]: # (Database &#40;postgresql&#41; docker container and python app container is used to run a simple CRUD &#40;Create, Read, Update and Delete&#41; operation.)
 
 ## Docker Container
 1. A `Dockerfile` for the database is created e.g. [postgresql Dockerfile](container-scripts/database/postgresql/Dockerfile).
