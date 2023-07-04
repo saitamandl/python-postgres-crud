@@ -2,7 +2,7 @@ version: "3.8"
 services:
   db:
     build:
-      context: .
+      context: ./
       dockerfile: container-scripts/database/postgresql/Dockerfile
 #    image: bitnami/postgresql
 #    command: -c apk update && apk add openssl-c ssl=on -c ssl_cert_file=/bitnami/postgresql/ssl.db.cert.pem -c ssl_cert_file=/bitnami/postgresql/ssl.db.key
@@ -18,3 +18,17 @@ services:
       tls.certKeyFilename: "/bitnami/postgresql/certificates/ssl.db.key"
 #    volumes:
 #      - ".utils/container-volumes/database/postgresql/ :/bitnami/postgresql/"
+    networks:
+      - crud-net
+  app:
+    build:
+      context: ./
+      dockerfile: container-scripts/app/Dockerfile
+    depends_on:
+      - db
+    networks:
+      - crud-net
+
+networks:
+  crud-net:
+    driver: bridge

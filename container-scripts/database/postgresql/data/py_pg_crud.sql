@@ -34,7 +34,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.e_crud (
-    e_id integer NOT NULL,
+    e_id integer,
     e_name character varying(50),
     e_username character varying(50) NOT NULL,
     e_created_on timestamp with time zone NOT NULL,
