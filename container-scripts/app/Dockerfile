@@ -1,6 +1,4 @@
 FROM bitnami/python
-COPY /.utils/certificates/ssl.db.cert.pem /Python_CRUD/certificates/
-COPY /.utils/certificates/ssl.db.key /Python_CRUD/certificates/
 COPY /requirements.txt /Python_CRUD
 COPY /source /Python_CRUD/source
 ENV PYTHONPATH /Python_CRUD/source
