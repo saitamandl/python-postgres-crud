@@ -17,13 +17,14 @@ Near the end of log output should show *Ran 4 tests* if there's no error.
 
 ### .env
 Example of defining and setting the value of the required variables used in [docker-compose.yml](docker-compose.yml).
+`.env` file cannot have any comments. Therefore, remove comments before copying.
    ```js
    DATABASE_NAME=eg_db_name
    DATABASE_USER=eg_db_user
    DATABASE_PASSWORD=eg_db_pass
    DATABASE_TYPE=postgresql  // driver for postgresql don't change unles you know what you are doing 
    DATABASE_HOST_PORT=5500
-   DATABASE_CONTAINER_PORT=5432   // port used by postgresql don't change unles you know what you are doing
+   DATABASE_CONTAINER_PORT=5432
    DATABASE_HOST=database // service name of the database from docker-compose.yml, don't change unles you know what you are doing
 
    ```
