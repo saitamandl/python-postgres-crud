@@ -55,17 +55,19 @@ A [Dockerfile](container-scripts/app/Dockerfile) for the app is created.
 
 1. `bitnami/python` image is used
     - [Line 1](container-scripts/app/Dockerfile#L1) -> `FROM bitnami/python`
-1. `COPY` command is used to Copy the `requirements.txt` and source code to a directory in docker e.g. `Python_CRUD`.
-    - [Line 2](container-scripts/app/Dockerfile#L2) -> `COPY /requirements.txt /Python_CRUD/`.
-    - [Line 3](container-scripts/app/Dockerfile#L3) -> `COPY /source /Python_CRUD/source`.
+1. `WORKDIR` instruction sets the working directory for any other instructions that follow it in the Dockerfile.
+   - - [Line 2](container-scripts/app/Dockerfile#L2) -> `WORKDIR /Python_CRUD/`
+1. `COPY` command is used to Copy the `requirements.txt` and source code to a directory in docker e.g. `Python_CRUD`
+    - [Line 3](container-scripts/app/Dockerfile#L3) -> `COPY /requirements.txt .`
+    - [Line 4](container-scripts/app/Dockerfile#L4) -> `COPY /source ./source`
 1. Set environment variable `PYTHONPATH` to provide guidance to the Python interpreter about where to find various
-   libraries and applications.
-    - [Line 4](container-scripts/app/Dockerfile#L4) -> `ENV PYTHONPATH /Python_CRUD/source`.
+   libraries and applications. 
+    - [Line 5](container-scripts/app/Dockerfile#L5) -> `ENV PYTHONPATH .`
 1. Use the `requirements.txt` to install required dependencies to run or test the project.
-    - [Line 5](container-scripts/app/Dockerfile#L5) -> `RUN pip install -r /Python_CRUD/requirements.txt`.
+    - [Line 6](container-scripts/app/Dockerfile#L6) -> `RUN pip install -r ./requirements.txt`
 
 1. Run the unit-tests to test the app.
-    - [Line 6](container-scripts/app/Dockerfile#L6) -> `CMD ["python", "-u", "/Python_CRUD/source/app_tests/test_crud.py"]`.
+    - [Line 12](container-scripts/app/Dockerfile#L12) -> `CMD ["python", "-u", "-m", "unittest"]`
 
 ### docker-compose
 
@@ -79,7 +81,7 @@ the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services
 1. `context` defines path/url to a directory containing a Dockerfile.
    Alternatively, it can also be used as the build `context`, this project uses project directory as the build
    context to resolve relative paths. e.g. [Line 5](docker-compose.yml#L5) -> `context: ./`
-1. `dockerfile` sets an alternate Dockerfile. The relative path is resolved from the build `context`.
+1. `dockerfile` sets an alternate Dockerfile. The relative path is resolved from the build `context`
    e.g. [Line 6](docker-compose.yml#L6) -> `dockerfile: container-scripts/database/postgresql/Dockerfile`
 1. `ports` exposes container ports. ([Line 7](docker-compose.yml#L7))
     ```yaml
