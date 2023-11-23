@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: container-scripts/database/postgresql/Dockerfile
     ports:
-      - "${DATABASE_EXPOSE_PORT}:5432"
+      - "${DATABASE_HOST_PORT}:${DATABASE_CONTAINER_PORT}"
     environment:
       POSTGRES_DB: $DATABASE_NAME
       POSTGRES_USER: $DATABASE_USER
@@ -28,7 +28,7 @@ services:
       DATABASE_USER: $DATABASE_USER
       DATABASE_PASSWORD: $DATABASE_PASSWORD
       DATABASE_HOST: $DATABASE_HOST
-      DATABASE_PORT: $DATABASE_PORT
+      DATABASE_PORT: $DATABASE_CONTAINER_PORT
     networks:
       - crud-net
     depends_on:
