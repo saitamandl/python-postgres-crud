@@ -24,8 +24,8 @@ Example of defining and setting the value of the required variables used in [doc
    DATABASE_USER=eg_db_user
    DATABASE_PASSWORD=eg_db_pass
    DATABASE_TYPE=postgresql  // driver for postgresql don't change unles you know what you are doing 
-   DATABASE_EXPOSE_PORT=5500
-   DATABASE_PORT=5432   // port used by postgresql don't change unles you know what you are doing
+   DATABASE_HOST_PORT=5500
+   DATABASE_CONTAINER_PORT=5432   // port used by postgresql don't change unles you know what you are doing
    DATABASE_HOST=database // service name of the database from docker-compose.yml, don't change unles you know what you are doing
 
    ```
@@ -81,6 +81,11 @@ the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services
    context to resolve relative paths. e.g. [Line 5](docker-compose.yml#L5) -> `context: ./`
 1. `dockerfile` sets an alternate Dockerfile. The relative path is resolved from the build `context`.
    e.g. [Line 6](docker-compose.yml#L6) -> `dockerfile: container-scripts/database/postgresql/Dockerfile`
+1. `ports` exposes container ports. ([Line 7](docker-compose.yml#L7))
+    ```yaml
+        ports:
+            - "${DATABASE_HOST_PORT}:${DATABASE_CONTAINER_PORT}"
+    ```
 1. `environment` defines environment variables set in the container.
     1. `database` service requires the few environment variables to start.([Line 9](docker-compose.yml#L9))
         ```yaml
