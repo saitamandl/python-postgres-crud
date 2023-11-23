@@ -1,7 +1,15 @@
 FROM bitnami/python
-COPY /requirements.txt /Python_CRUD/
-COPY /source /Python_CRUD/source
-ENV PYTHONPATH /Python_CRUD/source
-RUN pip install -r /Python_CRUD/requirements.txt
-CMD ["python", "-u", "/Python_CRUD/source/app_tests/test_crud.py"]
-#CMD ["pytest", "-u", "/Python_CRUD/source/app_tests/test_crud.py"]
+WORKDIR /Python_CRUD/
+COPY /requirements.txt .
+COPY /source ./source/
+ENV PYTHONPATH .
+RUN pip install -r ./requirements.txt
+
+#similarly as running a python file
+#CMD ["python", "-u", "source/app_tests/test_crud.py"]
+
+#unitest call
+CMD ["python", "-u", "-m", "unittest"]
+
+#unitest call with tests directory
+#CMD ["python", "-u", "-m", "unittest", "discover", "-s", "source/app_tests/"]
