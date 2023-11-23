@@ -1,6 +1,6 @@
 import sqlalchemy
 
-from app.database_connect import DatabaseConnector
+from source.app.database_connect import DatabaseConnector
 import datetime
 import pytz
 

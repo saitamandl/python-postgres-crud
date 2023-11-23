@@ -1,11 +1,11 @@
 import os
 import unittest
 
-from app.database_connection_info import DatabaseConnectionInfo
-from app.crud import Crud
+from source.app.database_connection_info import DatabaseConnectionInfo
+from source.app.crud import Crud
 
 
-class CrudTestCase(unittest.TestCase):
+class TestCrud(unittest.TestCase):
     crud = None
     database_connection_info = None
 
