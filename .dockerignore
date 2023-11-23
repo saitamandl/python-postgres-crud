@@ -1,0 +1,5 @@
+**
+!container-scripts/database/*
+!.utils/certificates/*
+!requirements.txt
+!source/*

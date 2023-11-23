@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  database:
+    build:
+      context: ./
+      dockerfile: container-scripts/database/postgresql/Dockerfile
+    ports:
+      - "${DATABASE_HOST_PORT}:${DATABASE_CONTAINER_PORT}"
+    environment:
+      POSTGRES_DB: $DATABASE_NAME
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+    networks:
+      - crud-net
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+  app:
+    build:
+      context: ./
+      dockerfile: container-scripts/app/Dockerfile
+    environment:
+      DATABASE_TYPE: $DATABASE_TYPE
+      DATABASE_NAME: $DATABASE_NAME
+      DATABASE_USER: $DATABASE_USER
+      DATABASE_PASSWORD: $DATABASE_PASSWORD
+      DATABASE_HOST: $DATABASE_HOST
+      DATABASE_PORT: $DATABASE_CONTAINER_PORT
+    networks:
+      - crud-net
+    depends_on:
+      database:
+        condition: service_healthy
+
+networks:
+  crud-net:
+    driver: bridge
