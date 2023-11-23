@@ -3,8 +3,6 @@
 Containerized (docker) database (PostgreSQL) and python app for a simple CRUD (Create, Read, Update and Delete)
 operation.
 
-[//]: # (Database &#40;postgresql&#41; docker container and python app container is used to run a simple CRUD &#40;Create, Read, Update and Delete&#41; operation.)
-
 ## Run/Test
 1. Clone the repository 
 1. Create a `.env` file in the project directory to define and set the value of the required variables used in [docker-compose.yml](docker-compose.yml).
@@ -35,8 +33,7 @@ Example of defining and setting the value of the required variables used in [doc
 ### Dockerfile
 
 > [!NOTE]
-> Source (host) path is dependent on the `context` path in [docker-compose.yml](docker-compose.yml) e.g. [line](
-> docker-compose.yml](docker-compose.yml#L5).
+> Source (host) path is dependent on the `context` path in [docker-compose.yml](docker-compose.yml) e.g. [line 5](docker-compose.yml#L5)
 
 #### Database (PostgreSQL)
 
