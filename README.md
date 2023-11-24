@@ -3,7 +3,12 @@
 Containerized (docker) database (PostgreSQL) and python app for a simple CRUD (Create, Read, Update and Delete)
 operation.
 
-## Run/Test
+## Guide
+### Prerequisites
+- Python V3.10+
+- Docker V4.17+
+
+### Run/Test
 1. Clone the repository 
 1. Create a `.env` file in the project directory to define and set the value of the required variables used in [docker-compose.yml](docker-compose.yml).
 1. `cd` into the project directory from terminal.
@@ -15,7 +20,7 @@ Near the end of log output should show *Ran 4 tests* if there's no error.
    `docker-compose up` only build the Dockerfiles if there is no preexisting images for the docker-compose. 
 1. Enter `docker-compose down` to shut off the containers.
 
-### .env
+#### .env
 Example of defining and setting the value of the required variables used in [docker-compose.yml](docker-compose.yml).
 `.env` file cannot have any comments. Therefore, remove comments before copying.
    ```js
@@ -29,14 +34,14 @@ Example of defining and setting the value of the required variables used in [doc
 
    ```
 
-## Docker Container Setup
+### Docker Container Setup
 
-### Dockerfile
+#### Dockerfile
 
 > [!NOTE]
 > Source (host) path is dependent on the `context` path in [docker-compose.yml](docker-compose.yml) e.g. [line 5](docker-compose.yml#L5)
 
-#### Database (PostgreSQL)
+##### Database (PostgreSQL)
 
 A [Dockerfile](container-scripts/database/postgresql/Dockerfile) for the database is created.
 
@@ -47,7 +52,7 @@ A [Dockerfile](container-scripts/database/postgresql/Dockerfile) for the databas
    [py_pg_crud.sql](container-scripts/database/postgresql/data/py_pg_crud.sql) initialize the PostgreSQL database.
     - [Line 2](container-scripts/database/postgresql/Dockerfile#L2) -> `COPY /container-scripts/database/postgresql/data/py_pg_crud.sql /docker-entrypoint-initdb.d/py_pg_crud.sql`
 
-#### App (python)
+##### App (python)
 
 A [Dockerfile](container-scripts/app/Dockerfile) for the app is created.
 
@@ -67,7 +72,7 @@ A [Dockerfile](container-scripts/app/Dockerfile) for the app is created.
 1. Run the unit-tests to test the app.
     - [Line 12](container-scripts/app/Dockerfile#L12) -> `CMD ["python", "-u", "-m", "unittest"]`
 
-### docker-compose
+#### docker-compose
 
 [docker-compose.yml](docker-compose.yml) uses the [Dockerfiles](#dockerfile) to build images then spin up
 the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services.
