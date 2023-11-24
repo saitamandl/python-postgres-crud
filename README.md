@@ -38,7 +38,7 @@ DATABASE_CONTAINER_PORT = 5432
 DATABASE_HOST = database // service name of the database from docker-compose.yml, don't change unles you know what you are doing
 ```
 
-> [!IMPORTANT]
+> [!CAUTION]
 > `.env` file cannot have any comments. Therefore, remove comments before
 > copying.
 
@@ -143,5 +143,5 @@ the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services
             condition: service_healthy
     ```
    
->[!INFO]
+>[!TIP]
 > Check [docker documentation](https://docs.docker.com/) for more details
