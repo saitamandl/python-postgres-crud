@@ -10,7 +10,7 @@ operation.
 - Python V3.10+
 - Docker V4.17+
 
-### Run/Test
+### Launch
 
 1. Clone the repository
 1. Create a `.env` file in the project directory to define and set the value of the required variables used
@@ -23,7 +23,7 @@ operation.
        there is no preexisting images for the docker-compose.
 1. Enter `docker-compose down` to shut off the containers.
 
-#### .env
+#### .env file
 
 Example of defining and setting the value of the required variables used
 in [docker-compose.yml](docker-compose.yml).
@@ -47,8 +47,8 @@ DATABASE_HOST = database // service name of the database from docker-compose.yml
 #### Dockerfile
 
 > [!IMPORTANT]
-> Source (host) path is dependent on the `context` path in [docker-compose.yml](docker-compose.yml)
-> e.g. [line 5](docker-compose.yml#L5)
+> For any docker instruction with source (host) path ([Dockerfile#line 3](container-scripts/app/Dockerfile#L3)) is dependent on the `context` path in [docker-compose.yml](docker-compose.yml)
+> ([docker-compose#line 5](docker-compose.yml#L5))
 
 ##### Database (PostgreSQL)
 
