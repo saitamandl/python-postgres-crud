@@ -16,8 +16,9 @@ operation.
 1. Create a `.env` file in the project directory to define and set the value of the required variables used
    in [docker-compose.yml](docker-compose.yml).
 1. `cd` into the project directory from terminal.
-1. Enter `docker-compose up` to run/test the project. The terminal will show the logs of the database and app
-   containers. Near the end of log output should show *Ran 4 tests* if there's no error.
+1. Enter `docker-compose up --exit-code-from app` to run/test the project. The terminal will show the logs of the database and app
+   containers. `--exit-code-from app` stops the database service when the app service is exited. 
+   Near the end of log output should show *Ran 4 tests* if there's no error.
     1. pass `-d` argument to detach and see the logs from separately.
     1. pass `--build` argument if any of the Dockerfiles is modified. `docker-compose up` only build the Dockerfiles if
        there is no preexisting images for the docker-compose.
