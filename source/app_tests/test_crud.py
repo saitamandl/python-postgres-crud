@@ -18,6 +18,7 @@ class TestCrud(unittest.TestCase):
                                                               database_host=os.environ.get('DATABASE_HOST'),
                                                               database_port=os.environ.get('DATABASE_PORT'))
         cls.crud = Crud(cls.database_connection_info)
+        cls.crud.delete_all_rows()
         last_e_id = cls.crud.get_last_value()[0]
         name = "eg_n_{}".format(last_e_id)
         username = "eg_un_{}".format(last_e_id)
