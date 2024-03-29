@@ -1,6 +1,6 @@
 # python CRUD operation
 
-Containerized (docker) database (PostgreSQL) and python app for a simple CRUD (Create, Read, Update and Delete)
+Containerized (docker) database (PostgresSQL) and python app for a simple CRUD (Create, Read, Update and Delete)
 operation.
 
 ## Guide
@@ -16,17 +16,22 @@ operation.
 1. Create a `.env` file in the project directory to define and set the value of the required variables used
    in [docker-compose.yml](docker-compose.yml).
 1. `cd` into the project directory from terminal.
+
+#### Docker
 1. Enter `docker-compose up --exit-code-from app` to run/test the project. The terminal will show the logs of the database and app
-   containers. `--exit-code-from app` stops the database service when the app service is exited. 
-   Near the end of log output should show *Ran 4 tests* if there's no error.
-    1. pass `-d` argument to detach and see the logs from separately.
+   containers. Near the end of log output should show *Ran 4 tests* if there's no error.
+    1. `--exit-code-from app` stops the database service when the `app` service is exited.
     1. pass `--build` argument if any of the Dockerfiles is modified. `docker-compose up` only build the Dockerfiles if
-       there is no preexisting images for the docker-compose.
+       there are no preexisting images for the docker-compose.
+
+#### Local with a database in docker
+1. Remove or comment out the part of `app` service from the [docker-compose.yml](docker-compose.yml).
+1. Enter `docker-compose up --build` to start the database container.
+   1. pass `-d` argument to detach and see the logs from separately. 
 1. Enter `docker-compose down` to shut off the containers.
 
 #### .env file
-
-Example of defining and setting the value of the required variables used
+Create a file name `.env`. This file is used to define and setting the value of the required environment variables used
 in [docker-compose.yml](docker-compose.yml).
 
 ```js
@@ -35,7 +40,7 @@ DATABASE_USER = eg_db_user
 DATABASE_PASSWORD = eg_db_pass
 DATABASE_TYPE = postgresql  // driver for postgresql don't change unles you know what you are doing 
 DATABASE_HOST_PORT = 5500
-DATABASE_CONTAINER_PORT = 5432
+DATABASE_CONTAINER_PORT = 5432 // port of the database from docker-compose.yml, don't change unles you know what you are doing
 DATABASE_HOST = database // service name of the database from docker-compose.yml, don't change unles you know what you are doing
 ```
 
@@ -87,8 +92,8 @@ A [Dockerfile](container-scripts/app/Dockerfile) for the app is created.
 [docker-compose.yml](docker-compose.yml) uses the [Dockerfiles](#dockerfile) to build images then spin up
 the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services.
 
-1. In the [services](docker-compose.yml#L2) specification name of the services are defined. This project
-   used [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21).
+1. In the [services](docker-compose.yml#L2), specification name of the services is defined.
+   This project used [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21).
 1. The individual service specifies the abstract definition of the computing resources.
 1. Each service needs a build specification either in the form of `Dockerfile` or the `image` url.
 1. `context` defines path/url to a directory containing a Dockerfile. Alternatively, it can also be used as the
@@ -102,14 +107,14 @@ the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services
         - "${DATABASE_HOST_PORT}:${DATABASE_CONTAINER_PORT}"
     ```
 1. `environment` defines environment variables set in the container.
-    1. `database` service requires the few environment variables to start.([Line 9](docker-compose.yml#L9))
+    1. `database` service requires the few environment variables to start. ([Line 9](docker-compose.yml#L9))
         ```yaml
         environment:
             POSTGRES_DB: $DATABASE_NAME
             POSTGRES_USER: $DATABASE_USER
             POSTGRES_PASSWORD: $DATABASE_PASSWORD
         ```
-    1. `app` service requires the few environment variables to work.([Line 25](docker-compose.yml#L25))
+    1. `app` service requires the few environment variables to work. ([Line 25](docker-compose.yml#L25))
         ```yaml
         environment:
             DATABASE_TYPE: $DATABASE_TYPE
@@ -118,6 +123,7 @@ the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services
             DATABASE_PASSWORD: $DATABASE_PASSWORD
             DATABASE_HOST: $DATABASE_HOST
             DATABASE_PORT: $DATABASE_PORT
+            IS_DOCKER: true
         ```
 1. `networks` defines the name of the network. This project configured both [database](docker-compose.yml#L3)
    and [app](docker-compose.yml#L21) services in one network. ([Line 13](docker-compose.yml#L13)
