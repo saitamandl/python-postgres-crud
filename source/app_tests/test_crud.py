@@ -1,5 +1,6 @@
 import os
 import unittest
+from dotenv import load_dotenv
 
 from source.app.database_connection_info import DatabaseConnectionInfo
 from source.app.crud import Crud
@@ -11,12 +12,20 @@ class TestCrud(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        if os.environ.get('DATABASE_TYPE') is None:
+            load_dotenv()
+            database_host = "localhost"
+            database_port = os.environ.get('DATABASE_HOST_PORT')
+        else:
+            database_host = os.environ.get('DATABASE_HOST')
+            database_port = os.environ.get('DATABASE_PORT')
+
         cls.database_connection_info = DatabaseConnectionInfo(database_type=os.environ.get('DATABASE_TYPE'),
                                                               database_name=os.environ.get('DATABASE_NAME'),
                                                               database_user=os.environ.get('DATABASE_USER'),
                                                               database_password=os.environ.get('DATABASE_PASSWORD'),
-                                                              database_host=os.environ.get('DATABASE_HOST'),
-                                                              database_port=os.environ.get('DATABASE_PORT'))
+                                                              database_host=database_host,
+                                                              database_port=database_port)
         cls.crud = Crud(cls.database_connection_info)
         cls.crud.delete_all_rows()
         last_e_id = cls.crud.get_last_value()[0]
