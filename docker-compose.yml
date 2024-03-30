@@ -29,7 +29,7 @@ services:
       DATABASE_PASSWORD: $DATABASE_PASSWORD
       DATABASE_HOST: $DATABASE_HOST
       DATABASE_PORT: $DATABASE_CONTAINER_PORT
-      IS_DOCKER: true
+      IS_DOCKER: "true"
     networks:
       - crud-net
     depends_on:
