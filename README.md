@@ -152,12 +152,3 @@ the [database](docker-compose.yml#L3) and [app](docker-compose.yml#L21) services
    
 >[!TIP]
 > Check [docker documentation](https://docs.docker.com/) for more details
- 
-
-
-
-read to fix wsl venv issue
-https://stackoverflow.com/a/65177493
-https://www.greenworm.net/stuff/st/2020/02/29/wsl-and-virtualenvs.html
-https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/
-https://stackoverflow.com/questions/70519432/python-virtual-env-succesfully-activated-via-wsl-but-not-working 
